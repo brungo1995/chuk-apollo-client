@@ -1,4 +1,4 @@
-const { default: axios } = require('axios');
+import axios from 'axios'
 
 const fetchCategories = async () => {
     try {
@@ -26,12 +26,10 @@ const fectchRandomJoke = async (category) => {
 }
 
 
-module.exports = {
-    resolvers: {
-        Query: {
-            categories: () => fetchCategories(),
-            randomJoke: (_, { category }) => fectchRandomJoke(category)
-        }
+export default {
+    Query: {
+        categories: () => fetchCategories(),
+        randomJoke: (_, { category }) => fectchRandomJoke(category)
     }
 }
 
