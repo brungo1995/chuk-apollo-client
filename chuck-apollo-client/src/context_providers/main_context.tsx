@@ -1,9 +1,9 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { ICategory } from "../Domain/Entities/Category";
-// import { IJoke } from "../Domain/Entities/Joke";
+import { IJoke } from "../Domain/Entities/Joke";
 import { IMainContext } from "../Domain/Entities/MainContext";
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { gql, } from '@apollo/client';
+import { gql } from '@apollo/client';
 
 // import CategoryRepository from "../Data/Repositories/CategoryRepository";
 
@@ -18,6 +18,8 @@ export function MainProvider({ children = null }: React.PropsWithChildren<{}>) {
 
     const [categories, setCategories] = useState<ICategory[]>([]);
     const [category, setCategory] = useState<ICategory>({} as ICategory);
+    const [joke, setJoke] = useState<IJoke>({} as IJoke);
+    const [searchByCategoryname, setSearchByCategoryname] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
 
@@ -26,8 +28,8 @@ export function MainProvider({ children = null }: React.PropsWithChildren<{}>) {
     }, []);
 
     useEffect(() => {
-        category?.name && getRandomJokeByCategory();
-    }, [category]);
+        searchByCategoryname !== "" && getRandomJokeByCategory();
+    }, [searchByCategoryname]);
 
     async function getJokeCategories(): Promise<void> {
         setLoading(true)
@@ -52,31 +54,30 @@ export function MainProvider({ children = null }: React.PropsWithChildren<{}>) {
     }
 
     async function getRandomJokeByCategory(): Promise<void> {
-        console.log(category)
-        // const { data, error } = await client.query({
-        //     query: gql`
-        //         query($category: String!){
-        //             randomJoke(category: $category){
-        //                 categories
-        //                 created_at
-        //                 icon_url
-        //                 id
-        //                 updated_at
-        //                 url
-        //                 value
+        const { data, error } = await client.query({
+            query: gql`
+                query getRandomJoke($category: String! = "${searchByCategoryname}"){
+                    randomJoke(category: $category){
+                        categories
+                        created_at
+                        icon_url
+                        id
+                        updated_at
+                        url
+                        value
 
-        //             }
-        //         }
-        //     `
-        // });
+                    }
+                }
+            `
+        });
 
-        // if (error) {
-        //     setError(error.message);
-        //     return
-        // }
+        if (error) {
+            setError(error.message);
+            return
+        }
 
-        // const apiCategory: ICategory = data.category
-        // setCategory(apiCategory)
+        const apiJoke: IJoke = data.randomJoke
+        setJoke(apiJoke);
     }
 
     return (
@@ -86,7 +87,10 @@ export function MainProvider({ children = null }: React.PropsWithChildren<{}>) {
                 error,
                 categories,
                 category,
-                setCategory
+                searchByCategoryname,
+                joke,
+                setCategory,
+                setSearchByCategoryname
             }}>
             {children}
         </MainContext.Provider>

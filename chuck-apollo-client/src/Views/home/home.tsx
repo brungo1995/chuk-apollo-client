@@ -12,11 +12,10 @@ import { ICategory } from '../../Domain/Entities/Category';
 
 function Home() {
     const classes = HomeStyles();
-    const { categories, loading, category, setCategory } = useContext(MainContext)
+    const { categories, loading, searchByCategoryname, setSearchByCategoryname } = useContext(MainContext)
 
-    const handleChange = (event: React.ChangeEvent<{ value: unknown, name?: string | undefined }>) => {
-        const name = event.target.name || "name";
-        setCategory({ ...category, [name]: event.target.value })
+    const handleChange = (event: React.ChangeEvent<any>) => {
+        setSearchByCategoryname(event.target.value)
     };
 
     return (
@@ -30,7 +29,7 @@ function Home() {
                         <Select
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
-                            value={category?.name || ""}
+                            value={searchByCategoryname || ""}
                             onChange={handleChange}
                             label="Age"
                             name="name"
