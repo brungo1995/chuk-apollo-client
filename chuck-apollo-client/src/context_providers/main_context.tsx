@@ -1,21 +1,13 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { ICategory } from "../Domain/Entities/Category";
-import { IJoke } from "../Domain/Entities/Joke";
-import { IMainContext } from "../Domain/Entities/MainContext";
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ICategory } from "../../Entities/Category";
+import { IJoke } from "../../Entities/Joke";
+import { IMainContext } from "../../Entities/MainContext";
 import { gql } from '@apollo/client';
-
-// import CategoryRepository from "../Data/Repositories/CategoryRepository";
+import { client } from "../util/apollo";
 
 export const MainContext = createContext<IMainContext>({} as IMainContext);
 
 export function MainProvider({ children = null }: React.PropsWithChildren<{}>) {
-    const client = new ApolloClient({
-        uri: 'http://localhost:4000/',
-        cache: new InMemoryCache()
-    });
-
-
     const [categories, setCategories] = useState<ICategory[]>([]);
     const [category, setCategory] = useState<ICategory>({} as ICategory);
     const [joke, setJoke] = useState<IJoke>({} as IJoke);
