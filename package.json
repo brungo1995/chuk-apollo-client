@@ -1,6 +1,7 @@
 {
   "name": "chuck-apollo-client",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.11",
@@ -14,17 +15,24 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "apollo-server": "^2.21.0",
+    "axios": "^0.21.1",
     "graphql": "^15.5.0",
     "moment": "^2.29.1",
+    "nodemon": "^2.0.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "typescript": "^4.1.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "client": "react-scripts start",
+    "api": "cd ./src/api && npm run-script start",
+    "server": "cd ./src/api && npm run-script start",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -48,6 +56,11 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.7"
-  }
+    "@types/react-router-dom": "^5.1.7",
+    "ts-node-dev": "^1.1.6"
+  },
+  "description": "This is a react app with TypeScript and Apollo client intended to query the [Chuck norris API](https://api.chucknorris.io/api \"Chuck norris api\"). This app uses a local GraphQL API to be used as a wrapper between the Chuck norris api and the React app. The local api is found [Here](https://github.com/brungo1995/chuck-apollo-server \"GraphQl api\").",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }
