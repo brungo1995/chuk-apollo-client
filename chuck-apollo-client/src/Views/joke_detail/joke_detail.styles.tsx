@@ -21,12 +21,20 @@ export const JokeDetailStyles = makeStyles((theme: Theme) =>
         typography: {
             marginTop: theme.spacing(2)
         },
+
         rootMedia: {
             maxWidth: 345,
         },
+
         media: {
             height: 140,
         },
+
+        link: {
+            textDecoration: "none",
+            color: "white",
+            fontSize: "1.5rem"
+        }
 
     }),
 );

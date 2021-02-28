@@ -4,9 +4,10 @@ export const HomeStyles = makeStyles((theme: Theme) =>
     createStyles({
         formControl: {
             margin: theme.spacing(1),
-            width: "50%",
+            width: "80%",
             marginTop: theme.spacing(10)
         },
+
         selectEmpty: {
             marginTop: theme.spacing(10),
         },

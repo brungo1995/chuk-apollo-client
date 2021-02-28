@@ -3,6 +3,7 @@ import { IJoke } from "./Joke";
 
 export interface IMainContext {
     loading: boolean;
+    fetchingJoke: boolean;
     error: string;
     joke: IJoke;
     searchByCategoryname: string;

@@ -4,19 +4,20 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import JokeDetail from '../joke_detail/joke_detail';
 import { MainContext } from "../../context_providers/main_context";
 import { HomeStyles } from "./home.styles"
-// import { CircularProgress, Typography } from '@material-ui/core';
 import { ICategory } from '../../Domain/Entities/Category';
+import JokeDetail from "../../Views/joke_detail/joke_detail"
 
 function Home() {
     const classes = HomeStyles();
     const { categories, loading, searchByCategoryname, setSearchByCategoryname } = useContext(MainContext)
 
     const handleChange = (event: React.ChangeEvent<any>) => {
-        setSearchByCategoryname(event.target.value)
-    };
+        const name = event.target.value;
+        setSearchByCategoryname(name);
+    }
+
 
     return (
         <>
@@ -24,6 +25,7 @@ function Home() {
                 <Grid container spacing={3} style={{
                     justifyContent: 'center'
                 }}>
+
                     <FormControl variant="outlined" className={classes.formControl}>
                         <InputLabel id="demo-simple-select-outlined-label">Categories</InputLabel>
                         <Select
@@ -31,13 +33,8 @@ function Home() {
                             id="demo-simple-select-outlined"
                             value={searchByCategoryname || ""}
                             onChange={handleChange}
-                            label="Age"
-                            name="name"
+                            label="Categories"
                         >
-                            {/* <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem> */}
-
                             {
                                 !loading && (categories || [])
                                     .map((category: ICategory, index) =>
@@ -45,7 +42,6 @@ function Home() {
                                             {category.name}
                                         </MenuItem>)
                             }
-
                         </Select>
                     </FormControl>
                 </Grid>

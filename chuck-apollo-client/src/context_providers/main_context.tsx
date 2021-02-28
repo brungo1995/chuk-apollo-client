@@ -21,6 +21,7 @@ export function MainProvider({ children = null }: React.PropsWithChildren<{}>) {
     const [joke, setJoke] = useState<IJoke>({} as IJoke);
     const [searchByCategoryname, setSearchByCategoryname] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
+    const [fetchingJoke, setFetchingJoke] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
 
     useEffect(() => {
@@ -54,6 +55,7 @@ export function MainProvider({ children = null }: React.PropsWithChildren<{}>) {
     }
 
     async function getRandomJokeByCategory(): Promise<void> {
+        setFetchingJoke(true)
         const { data, error } = await client.query({
             query: gql`
                 query getRandomJoke($category: String! = "${searchByCategoryname}"){
@@ -70,6 +72,7 @@ export function MainProvider({ children = null }: React.PropsWithChildren<{}>) {
                 }
             `
         });
+        setFetchingJoke(false)
 
         if (error) {
             setError(error.message);
@@ -84,6 +87,7 @@ export function MainProvider({ children = null }: React.PropsWithChildren<{}>) {
         <MainContext.Provider
             value={{
                 loading,
+                fetchingJoke,
                 error,
                 categories,
                 category,
