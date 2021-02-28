@@ -32,7 +32,8 @@ export const JokeDetailStyles = makeStyles((theme: Theme) =>
 
         link: {
             textDecoration: "none",
-            color: "white",
+            color: theme.palette.primary.contrastText,
+            // color: "white",
             fontSize: "1.5rem"
         }
 
