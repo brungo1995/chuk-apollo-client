@@ -94,7 +94,8 @@ export function MainProvider({ children = null }: React.PropsWithChildren<{}>) {
                 searchByCategoryname,
                 joke,
                 setCategory,
-                setSearchByCategoryname
+                setSearchByCategoryname,
+                getRandomJokeByCategory,
             }}>
             {children}
         </MainContext.Provider>

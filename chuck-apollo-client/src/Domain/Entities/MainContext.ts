@@ -11,4 +11,5 @@ export interface IMainContext {
     category: ICategory;
     setCategory(category: ICategory): void
     setSearchByCategoryname(name: string): void
+    getRandomJokeByCategory(): Promise<void>
 }

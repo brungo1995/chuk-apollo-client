@@ -8,6 +8,7 @@ import { MainContext } from "../../context_providers/main_context";
 import { HomeStyles } from "./home.styles"
 import { ICategory } from '../../Domain/Entities/Category';
 import JokeDetail from "../../Views/joke_detail/joke_detail"
+import { capitalizeFirstLetter } from '../../util/utils';
 
 function Home() {
     const classes = HomeStyles();
@@ -39,7 +40,7 @@ function Home() {
                                 !loading && (categories || [])
                                     .map((category: ICategory, index) =>
                                         <MenuItem key={index} value={category.name}>
-                                            {category.name}
+                                            {capitalizeFirstLetter(category.name)}
                                         </MenuItem>)
                             }
                         </Select>
