@@ -10,6 +10,7 @@ export interface IMainContext {
     categories: ICategory[];
     category: ICategory;
     setCategory(category: ICategory): void
+    setError(name: string): void
     setSearchByCategoryname(name: string): void
     getRandomJokeByCategory(): Promise<void>
 }

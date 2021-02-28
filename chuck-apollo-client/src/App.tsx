@@ -9,6 +9,7 @@ import { createMuiTheme, useMediaQuery, ThemeProvider } from '@material-ui/core'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Home from "./Views/home/home";
 import { MainProvider } from "./context_providers/main_context"
+import { AlertProvider } from './context_providers/alert_context';
 
 function App() {
   return (
@@ -39,9 +40,11 @@ function ContextProvider() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <MainProvider>
-          <App />
-        </MainProvider>
+        <AlertProvider>
+          <MainProvider>
+            <App />
+          </MainProvider>
+        </AlertProvider>
       </ThemeProvider>
     </>
   )

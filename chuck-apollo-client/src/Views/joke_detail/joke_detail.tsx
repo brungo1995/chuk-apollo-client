@@ -5,10 +5,12 @@ import moment from "moment";
 import placeholderImage from "../../assets/placeholder_image.jpg"
 import { MainContext } from "../../context_providers/main_context";
 import { capitalizeFirstLetter } from "../../util/utils"
+import { AlertContext } from '../../context_providers/alert_context';
 
 const JokeDetail = () => {
     const classes = JokeDetailStyles();
-    const { joke, fetchingJoke, getRandomJokeByCategory } = useContext(MainContext);
+    const { errorAlert } = useContext(AlertContext)
+    const { joke, fetchingJoke, error, setError, getRandomJokeByCategory } = useContext(MainContext);
     const { categories: jokeCategories, created_at, icon_url, updated_at, url, value } = joke;
     const categories = (jokeCategories || []).map(category => capitalizeFirstLetter(category)).join(", ");
     const createAt = moment(created_at).format("Do MMM  YYYY")
@@ -48,7 +50,7 @@ const JokeDetail = () => {
                                 <Grid item xs={12}  >
                                     <Typography className={classes.typography}>Updated at: {updatedAt}</Typography>
                                     <Paper className={classes.paper}>{value}</Paper>
-                                    <Grid item xs={12} style={{ display: "flex", justifyContent: 'space-between' }}>
+                                    <Grid item xs={12} style={{ display: "flex", justifyContent: 'space-between', flexWrap: 'wrap' }}>
                                         <Typography className={classes.typography}>Created at: {createAt}</Typography>
                                         <Button variant="contained" color="primary" style={{ marginTop: "1rem" }}
                                             onClick={getRandomJokeByCategory}>
@@ -69,11 +71,21 @@ const JokeDetail = () => {
         return <></>
     }
 
+    function renderError() {
+        if (error) {
+            errorAlert(error, () => {
+                setError("")
+            })
+        }
+
+    }
+
 
     return (
         <div>
             {renderLoading()}
             {renderJoke()}
+            {renderError()}
         </div>
     )
 }

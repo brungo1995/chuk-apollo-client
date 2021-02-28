@@ -33,54 +33,71 @@ export function MainProvider({ children = null }: React.PropsWithChildren<{}>) {
     }, [searchByCategoryname]);
 
     async function getJokeCategories(): Promise<void> {
-        setLoading(true)
-        const { data, error } = await client.query({
-            query: gql`
-                query{
-                    categories{
-                        name
+        try {
+            setLoading(true)
+            const { data, error } = await client.query({
+                query: gql`
+                    query{
+                        categories{
+                            name
+                        }
                     }
-                }
-            `
-        });
+                `
+            });
 
-        if (error) {
+
+            if (error) {
+                setError(error.message);
+                return
+            }
+
+            const apiCategories: ICategory[] = data.categories
+            setCategories(apiCategories)
+            setLoading(false);
+
+        } catch (error) {
+            setLoading(false);
+            setCategories([]);
             setError(error.message);
-            return
+            console.log(error)
         }
-
-        const apiCategories: ICategory[] = data.categories
-        setCategories(apiCategories)
-        setLoading(false);
     }
 
     async function getRandomJokeByCategory(): Promise<void> {
-        setFetchingJoke(true)
-        const { data, error } = await client.query({
-            query: gql`
-                query getRandomJoke($category: String! = "${searchByCategoryname}"){
-                    randomJoke(category: $category){
-                        categories
-                        created_at
-                        icon_url
-                        id
-                        updated_at
-                        url
-                        value
-
+        try {
+            setFetchingJoke(true)
+            const { data, error } = await client.query({
+                query: gql`
+                    query getRandomJoke($category: String! = "${searchByCategoryname}"){
+                        randomJoke(category: $category){
+                            categories
+                            created_at
+                            icon_url
+                            id
+                            updated_at
+                            url
+                            value
+                        }
                     }
-                }
-            `
-        });
-        setFetchingJoke(false)
+                `
+            });
 
-        if (error) {
+            setFetchingJoke(false)
+
+            if (error) {
+                setError(error.message);
+                return
+            }
+
+            const apiJoke: IJoke = data.randomJoke
+            setJoke(apiJoke);
+
+        } catch (error) {
+            setFetchingJoke(false)
+            setCategory({} as ICategory);
             setError(error.message);
-            return
+            console.log(error)
         }
-
-        const apiJoke: IJoke = data.randomJoke
-        setJoke(apiJoke);
     }
 
     return (
@@ -93,6 +110,7 @@ export function MainProvider({ children = null }: React.PropsWithChildren<{}>) {
                 category,
                 searchByCategoryname,
                 joke,
+                setError,
                 setCategory,
                 setSearchByCategoryname,
                 getRandomJokeByCategory,
