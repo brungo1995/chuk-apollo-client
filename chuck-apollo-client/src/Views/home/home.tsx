@@ -6,8 +6,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { MainContext } from "../../context_providers/main_context";
 import { HomeStyles } from "./home.styles"
-import { ICategory } from '../../../Entities/Category';
-import JokeDetail from "../../Views/joke_detail/joke_detail"
+import { ICategory } from '../../Entities/Category';
+import JokeDetail from "../joke_detail/joke_detail"
 import { capitalizeFirstLetter } from '../../util/utils';
 import { AlertContext } from "../../context_providers/alert_context";
 

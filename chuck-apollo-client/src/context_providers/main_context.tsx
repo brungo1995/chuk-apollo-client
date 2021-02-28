@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { ICategory } from "../../Entities/Category";
-import { IJoke } from "../../Entities/Joke";
-import { IMainContext } from "../../Entities/MainContext";
+import { ICategory } from "../Entities/Category";
+import { IJoke } from "../Entities/Joke";
+import { IMainContext } from "../Entities/MainContext";
 import { gql } from '@apollo/client';
 import { client } from "../util/apollo";
 
@@ -59,6 +59,7 @@ export function MainProvider({ children = null }: React.PropsWithChildren<{}>) {
         try {
             setFetchingJoke(true)
             const { data, error } = await client.query({
+                fetchPolicy: 'network-only',
                 query: gql`
                     query getRandomJoke($category: String! = "${searchByCategoryname}"){
                         randomJoke(category: $category){
@@ -80,7 +81,6 @@ export function MainProvider({ children = null }: React.PropsWithChildren<{}>) {
                 setError(error.message);
                 return
             }
-
             const apiJoke: IJoke = data.randomJoke
             setJoke(apiJoke);
 

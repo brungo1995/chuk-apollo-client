@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import { createMuiTheme, useMediaQuery, ThemeProvider } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Home from "./Views/home/home";
+import Home from "./Views/home/Home";
 import { MainProvider } from "./context_providers/main_context"
 import { AlertProvider } from './context_providers/alert_context';
 
