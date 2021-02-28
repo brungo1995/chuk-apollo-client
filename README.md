@@ -1,20 +1,7 @@
-# Chuck Norris apollo react app 
-This is a react app with TypeScript and Apollo client intended to query the [Chuck norris API](https://api.chucknorris.io/api "Chuck norris api"). This app uses a local GraphQL API to be used as a wrapper between the Chuck norris api and the React app. The local api is found [Here](https://github.com/brungo1995/chuck-apollo-server "GraphQl api").
+## Sandbox branch
+ * This app (client and server) are available here [Sandbox link](https://fkych-3000.sse.codesandbox.io/ "Sandbox link") for live testing 
 
-## Prerequisites
- * Node Js installed at least version 12
-
-## How to run the app
- * Clone the repo
- * On the root folder run 
-```bash
-    npm install
-```
- * This should install all dependencies
- * Make sure that the [Local GraphQl API](https://github.com/brungo1995/chuck-apollo-server "GraphQl api") is up and running otherwise, you won't be able to query the API 
- * Then run 
- ```bash
-    npm run start
-```
- * The start script will start the app on port 3000 if available and launch the browser 
- * Enjoy the APP and have a laugh 😹
+## How to run the app in sandbox
+ * Navigate to this [link](https://fkych-3000.sse.codesandbox.io/ "Sandbox link")
+ * Wait until the app finishes building (if fails reload the browser)
+ * If both ( client and server ) finished to build sucessfully the GrapghQL explorer will be available [here](https://fkych-4000.sse.codesandbox.io/ "GrapghQL explorer") and the React app will be available [here](https://fkych-3000.sse.codesandbox.io/ "React App") 
